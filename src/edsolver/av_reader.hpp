@@ -52,7 +52,7 @@ namespace edsolver {
     }
 
   private:
-    std::auto_ptr<H5::CommonFG> root;
+    std::unique_ptr<H5::Group> root;
   };
 }
 

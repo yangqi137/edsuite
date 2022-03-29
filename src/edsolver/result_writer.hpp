@@ -21,7 +21,7 @@ namespace edsolver {
       : root(new H5::Group(root)) {}
 
   public:
-    
+
     template <class DrvType>
     void writeSln(const DrvType& drv) {
       using namespace h5generic;
@@ -29,16 +29,16 @@ namespace edsolver {
       for (unsigned i=0;i<drv.get_nconv();i++) {
 	std::ostringstream oss;
 	oss<<i<<std::ends;
-	
-	H5::DataSet ds = 
-	  CreateDataSet(slns, oss.str(), 
+
+	H5::DataSet ds =
+	  CreateDataSet(slns, oss.str(),
 			MakeBNBVectorBuffer<const typename DrvType::evec_return_type>(drv.evec(i)));
 	CreateAttribute(ds, "E", MakeScalarBuffer(drv.evals()[i]));
       }
     }
 
   private:
-    std::auto_ptr<H5::CommonFG> root;
+    std::unique_ptr<H5::Group> root;
   };
 }
 
